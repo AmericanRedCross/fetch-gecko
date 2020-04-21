@@ -1,4 +1,7 @@
 settings.js
+notes/
+tmp/*
+!tmp/README.csv
 
 node_modules
 

@@ -1,7 +1,32 @@
 var settings = {}
 
 settings.app = {
-	port: 3022
+	port: 3024,
+  folderPath: ""
+}
+settings.wufoo = {
+  subdomain: "",
+  apiKey: "",
+	profileTz: "America/New_York",
+  hashes: ["", "", ""],
+	formLookup: {
+		"":"",
+		"":"",
+		"":""
+	},
+	header: [
+		{ id: "_flag", title: "_flag"},
+		{ id: "_form", title: "_form"},
+		{ id: "_division", title: "_division"},
+		{ id: "DateCreated", title: "DateCreated"},
+		{ id: "_dateTime", title: "_dateTime"},
+		{ id: "CreatedBy", title: "CreatedBy"},
+		{ id: "DateUpdated", title: "DateUpdated"},
+		{ id: "UpdatedBy", title: "UpdatedBy"}
+	],
+	divisionLookup: {
+		"":""
+	}
 }
 
 module.exports = settings;
