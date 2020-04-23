@@ -79,7 +79,7 @@ function dataFetch(){
           var hours = 0;
           var endTime = DateTime.fromObject({ hour: 17, zone: 'America/New_York' }); 
           if(endTime.weekday === 2) { hours = 120; } // Tues
-          if(endTime.weekday === 5) { hours = 48; } // Thurs
+          if(endTime.weekday === 4) { hours = 48; } // Thurs
           var dur = Duration.fromObject({hours: hours});
           var startTime = endTime.minus(dur); 
           async.each(results.data, function(row, eachCallback) {
@@ -117,7 +117,7 @@ function dataFetch(){
 var CronJob = require('cron').CronJob;
 new CronJob('00 00 17 * * *', function() {
   var now = DateTime.local(); 
-  if(now.weekday === 2 || now.weekday === 2) { 
+  if(now.weekday === 2 || now.weekday === 4) { 
     // it's Tues or Thurs!
     dataFetch();
   } 
