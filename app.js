@@ -42,7 +42,7 @@ function dataFetch(){
     },
     function(result, cb) {
       console.log("writing all data to csv ...")
-      var fileName = "all " + DateTime.local().toFormat("yyyy-MM-dd") + ".csv";
+      var fileName = DateTime.local().toFormat("yyyy-MM-dd") + " all.csv";
       const outputFile = path.join(settings.app.folderPath,fileName);
       const createCsvWriter = require('csv-writer').createObjectCsvWriter;
       const csvWriter = createCsvWriter({
@@ -91,7 +91,7 @@ function dataFetch(){
           }, function(err){ 
             if(err) cb(err)
             var filteredCsv = Papa.unparse(filteredResults);
-            var filteredFileName = "filtered entries " + startTime.toFormat("yyyy-MM-dd'T'HH'-'mm") + " to " + endTime.toFormat("yyyy-MM-dd'T'HH'-'mmZZZZ") + ".csv";
+            var filteredFileName =  endTime.toFormat("yyyy-MM-dd'T'HH'-'mmZZZZ") + " filtered from " + startTime.toFormat("yyyy-MM-dd'T'HH'-'mm") + ".csv";
             var outputfilteredCsv = path.join(settings.app.folderPath,filteredFileName)
             if (fs.existsSync(outputfilteredCsv)) {
               fs.unlinkSync(outputfilteredCsv);
@@ -107,7 +107,7 @@ function dataFetch(){
         // ... TODO
         console.log(err)
       } else {
-        console.log("finished, starting sync...")
+        console.log("finished, starting sync ...")
         const syncScript = spawn('onedrive', ["--synchronize"])
         syncScript.stdout.on('data', (data) => {
           console.log(`onedrive stdout: ${data}`);
