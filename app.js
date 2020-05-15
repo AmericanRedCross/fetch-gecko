@@ -77,10 +77,13 @@ function dataFetch(){
         complete: function(results) {
           var filteredResults = []
           var hours = 0;
-          var endTime = DateTime.fromObject({ hour: 17, zone: 'America/New_York' }); 
-          if(endTime.weekday === 2) { hours = 120; } // Tues
-          if(endTime.weekday === 4) { hours = 48; } // Thurs
-          var dur = Duration.fromObject({hours: hours});
+          // var endTime = DateTime.fromObject({ hour: 17, zone: 'America/New_York' }); 
+          // if(endTime.weekday === 2) { hours = 120; } // Tues
+          // if(endTime.weekday === 4) { hours = 48; } // Thurs
+          // var dur = Duration.fromObject({hours: hours});
+          // var startTime = endTime.minus(dur); 
+          var endTime = DateTime.fromObject({ hour: 15, zone: 'America/New_York' }); 
+          var dur = Duration.fromObject({days: 7});
           var startTime = endTime.minus(dur); 
           async.each(results.data, function(row, eachCallback) {
             var rowDt = DateTime.fromISO(row._dateTime);
@@ -91,7 +94,7 @@ function dataFetch(){
           }, function(err){ 
             if(err) cb(err)
             var filteredCsv = Papa.unparse(filteredResults);
-            var filteredFileName =  endTime.toFormat("yyyy-MM-dd'T'HH'-'mmZZZZ") + " filtered from " + startTime.toFormat("yyyy-MM-dd'T'HH'-'mm") + ".csv";
+            var filteredFileName =  endTime.toFormat("yyyy-MM-dd'T'HH'-'mmZZZZ") + " from after " + startTime.toFormat("yyyy-MM-dd'T'HH'-'mm") + ".csv";
             var outputfilteredCsv = path.join(settings.app.folderPath,filteredFileName)
             if (fs.existsSync(outputfilteredCsv)) {
               fs.unlinkSync(outputfilteredCsv);
@@ -123,12 +126,8 @@ function dataFetch(){
   ) 
 }
 
-// run something every day at 5pm
+// run something every Wednesday at 3pm
 var CronJob = require('cron').CronJob;
-new CronJob('00 00 17 * * *', function() {
-  var now = DateTime.local(); 
-  if(now.weekday === 2 || now.weekday === 4) { 
-    // it's Tues or Thurs!
-    dataFetch();
-  } 
+new CronJob('00 00 15 * * 3', function() {
+  dataFetch();
 }, null, true, 'America/New_York').start();
