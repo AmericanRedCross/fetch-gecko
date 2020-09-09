@@ -97,8 +97,8 @@ WUFOO.prototype.getAllEntries = function(surveyHash, callback) {
       item._dateTime = DateTime.fromISO(item.DateCreated).setZone(settings.wufoo.profileTz).toISO()
       item.DateCreated = DateTime.fromISO(item.DateCreated).setZone(settings.wufoo.profileTz).toISODate()
       item["_form"] = settings.wufoo.formLookup[surveyHash];
-      var thisRegion = item["Field413"]
-      item["_division"] = settings.wufoo.divisionLookup[thisRegion]
+      // var thisRegion = item["Field413"]
+      // item["_division"] = settings.wufoo.divisionLookup[thisRegion]
       if (item["Field1"].length > 0 || 
           item["Field2"].length > 0 || 
           item["Field3"].length > 0 || 
