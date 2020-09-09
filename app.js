@@ -41,6 +41,18 @@ function dataFetch(){
       });
     },
     function(result, cb) {
+      
+      function compare( a, b ) {
+        if ( a._dateTime < b._dateTime ){
+          return -1;
+        }
+        if ( a._dateTime > b._dateTime ){
+          return 1;
+        }
+        return 0;
+      }
+      result.sort( compare );
+
       console.log("writing all data to csv ...")
       // var fileName = DateTime.local().toFormat("yyyy-MM-dd") + " all.csv";
       var fileName = "screening-data.csv"
